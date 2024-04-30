@@ -1,11 +1,11 @@
 import "./App.css";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
+import Home from "./components/MainContent/Home/Home";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
   return (
     <div className="w-full h-[calc(100vh)] bg-black flex">
-      <Navbar />
+      <Sidebar />
       <main className="w-3/4 h-full grow">
         <Home />
       </main>
