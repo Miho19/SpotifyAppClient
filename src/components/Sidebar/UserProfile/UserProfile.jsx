@@ -1,10 +1,10 @@
-import SideBarButton from "../SideBarButton";
 import SidebarContainer from "../SidebarContainer";
+import UserProfileBubble from "./UserProfileBubble";
 
 export default function UserProfile() {
   return (
-    <SidebarContainer>
-      <SideBarButton buttonText="User Profile" />
+    <SidebarContainer dataTestID="userProfile">
+      <UserProfileBubble />
     </SidebarContainer>
   );
 }
