@@ -4,11 +4,13 @@ export default function Login() {
   const { loginWithRedirect } = useAuth0();
   console.log(import.meta.env.VITE_AUTH0DOMAIN);
   return (
-    <button
-      className="text-slate-950 w-20 h-20 bg-slate-100"
-      onClick={() => loginWithRedirect()}
-    >
-      Log In
-    </button>
+    <main className="flex h-screen w-dvw items-center justify-center bg-gradient-to-l from-[#161616] to-[#171717]">
+      <button
+        className="h-14 w-60 rounded-full bg-gradient-to-l from-[#525252] to-[#959595] text-2xl font-bold text-white duration-75 hover:bg-zinc-400 hover:opacity-95"
+        onClick={() => loginWithRedirect()}
+      >
+        Log In
+      </button>
+    </main>
   );
 }
