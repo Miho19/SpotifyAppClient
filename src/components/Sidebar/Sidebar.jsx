@@ -4,7 +4,7 @@ import UserPlaylists from "./UserPlaylists/UserPlaylists";
 
 export default function Sidebar() {
   return (
-    <aside className="w-1/4 h-full bg-black hidden sm:flex flex-col mx-3 ">
+    <aside className="mx-3 hidden h-full w-1/4 flex-col bg-black sm:flex ">
       <UserProfile />
       <Navbar />
       <UserPlaylists />
