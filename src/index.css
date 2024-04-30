@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@layer components {
+  .backgroundCard {
+    @apply bg-gradient-to-l from-[#161616] to-[#171717] rounded-lg opacity-75;
+  }
+}
