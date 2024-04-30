@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
   const { loginWithRedirect } = useAuth0();
-  console.log(import.meta.env.VITE_AUTH0DOMAIN);
+
   return (
     <main className="flex h-screen w-dvw items-center justify-center bg-gradient-to-l from-[#161616] to-[#171717]">
       <button
