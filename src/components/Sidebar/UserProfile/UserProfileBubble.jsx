@@ -11,8 +11,8 @@ export default function UserProfileBubble() {
       <UserProfilePicture />
       <SideBarButton buttonText={`${user.name}`} />
       <button
+        aria-label="logout button"
         className="ml-auto  text-gray-400 duration-500 hover:cursor-pointer hover:text-white"
-        data-testid="logoutButton"
         onClick={() =>
           logout({ logoutParams: { returnTo: window.location.origin } })
         }

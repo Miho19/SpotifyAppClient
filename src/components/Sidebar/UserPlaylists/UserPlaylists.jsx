@@ -3,7 +3,7 @@ import SidebarContainer from "../SidebarContainer";
 
 export default function UserPlaylists() {
   return (
-    <SidebarContainer dataTestID="userPlaylist">
+    <SidebarContainer>
       <SideBarButton buttonText="User Playlist" />
     </SidebarContainer>
   );

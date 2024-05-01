@@ -4,6 +4,7 @@ import App from "../App";
 import UserProfileBubble from "../components/Sidebar/UserProfile/UserProfileBubble";
 import { testReturnObject } from "./useAuth0MockReturn";
 import userEvent from "@testing-library/user-event";
+import Navbar from "../components/Sidebar/Navbar/Navbar";
 
 vi.mock("@auth0/auth0-react");
 
@@ -22,45 +23,27 @@ describe("Sidebar", () => {
 
     test("User profile nav rendered", () => {
       render(<App />);
-      expect(screen.getByTestId("userProfile")).toBeDefined();
+      const usernameButton = screen.getByText(`${testReturnObject.user.name}`);
+      const profilePicture = screen.getByAltText(
+        `${testReturnObject.user.name} profile picture`,
+      );
+
+      expect(usernameButton).toBeDefined();
+      expect(profilePicture).toBeDefined();
     });
+
     test("User playlist nav rendered", () => {
       render(<App />);
-      expect(screen.getByTestId("userPlaylist")).toBeDefined();
+      expect(screen.getByText("User Playlist")).toBeDefined();
     });
-    test("Main nav rendered", () => {
+
+    test("Main nav rendered should display Home button", () => {
       render(<App />);
-      expect(screen.getByTestId("nav")).toBeDefined();
+      expect(screen.getByText("Home")).toBeDefined();
     });
   });
 
   describe("User Profile", () => {
-    beforeEach(async () => {
-      const auth0 = await import("@auth0/auth0-react");
-      auth0.useAuth0 = vi.fn().mockReturnValue({
-        ...testReturnObject,
-        isAuthenticated: true,
-        isLoading: false,
-      });
-    });
-
-    afterEach(() => vi.restoreAllMocks());
-
-    test("Profile picture should be displayed", () => {
-      render(<UserProfileBubble />);
-      expect(screen.getByTestId("profilePicture")).toBeTruthy();
-    });
-
-    test("User fullname should be displayed", () => {
-      render(<UserProfileBubble />);
-      expect(screen.getByText(`${testReturnObject.user.name}`)).toBeTruthy();
-    });
-
-    test("Logout button should be displayed", () => {
-      render(<UserProfileBubble />);
-      expect(screen.getByTestId(`logoutButton`)).toBeTruthy();
-    });
-
     describe("User Profile Auth0 interaction", () => {
       afterEach(() => vi.restoreAllMocks());
 
@@ -78,7 +61,9 @@ describe("Sidebar", () => {
         });
 
         render(<UserProfileBubble />);
-        const logoutButton = screen.getByTestId(`logoutButton`);
+        const logoutButton = screen.getByRole("button", {
+          name: "logout button",
+        });
 
         await user.click(logoutButton);
         expect(spy).toHaveBeenCalled();
@@ -87,6 +72,26 @@ describe("Sidebar", () => {
   });
 
   describe("Navbar", () => {
-    test("", () => {});
+    beforeEach(async () => {
+      const auth0 = await import("@auth0/auth0-react");
+      auth0.useAuth0 = vi.fn().mockReturnValue({
+        ...testReturnObject,
+        isAuthenticated: true,
+        isLoading: false,
+      });
+    });
+
+    afterEach(() => vi.restoreAllMocks());
+
+    test("Navbar should render a home, party playlist button", () => {
+      render(<Navbar />);
+      const homeButton = screen.getByRole("button", { name: "Home Page" });
+      const partyPlaylistButton = screen.getByRole("button", {
+        name: "Party Playlist",
+      });
+
+      expect(homeButton).toBeTruthy();
+      expect(partyPlaylistButton).toBeTruthy();
+    });
   });
 });
