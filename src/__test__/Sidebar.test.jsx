@@ -34,7 +34,7 @@ describe("Sidebar", () => {
     });
   });
 
-  describe("User profile nav should render profile", () => {
+  describe("User Profile", () => {
     beforeEach(async () => {
       const auth0 = await import("@auth0/auth0-react");
       auth0.useAuth0 = vi.fn().mockReturnValue({
@@ -60,29 +60,33 @@ describe("Sidebar", () => {
       render(<UserProfileBubble />);
       expect(screen.getByTestId(`logoutButton`)).toBeTruthy();
     });
+
+    describe("User Profile Auth0 interaction", () => {
+      afterEach(() => vi.restoreAllMocks());
+
+      test("Logout button should log a user out", async () => {
+        const user = userEvent.setup();
+        const spy = vi.fn();
+
+        const auth0 = await import("@auth0/auth0-react");
+
+        auth0.useAuth0 = vi.fn().mockReturnValue({
+          ...testReturnObject,
+          isAuthenticated: true,
+          isLoading: false,
+          logout: spy,
+        });
+
+        render(<UserProfileBubble />);
+        const logoutButton = screen.getByTestId(`logoutButton`);
+
+        await user.click(logoutButton);
+        expect(spy).toHaveBeenCalled();
+      });
+    });
   });
 
-  describe("User Profile Auth0 interaction", () => {
-    afterEach(() => vi.restoreAllMocks());
-
-    test("Logout button should log a user out", async () => {
-      const user = userEvent.setup();
-      const spy = vi.fn();
-
-      const auth0 = await import("@auth0/auth0-react");
-
-      auth0.useAuth0 = vi.fn().mockReturnValue({
-        ...testReturnObject,
-        isAuthenticated: true,
-        isLoading: false,
-        logout: spy,
-      });
-
-      render(<UserProfileBubble />);
-      const logoutButton = screen.getByTestId(`logoutButton`);
-
-      await user.click(logoutButton);
-      expect(spy).toHaveBeenCalled();
-    });
+  describe("Navbar", () => {
+    test("", () => {});
   });
 });
