@@ -1,28 +1,20 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi, afterEach, beforeEach } from "vitest";
-
 import App from "../App";
-
 import UserProfileBubble from "../components/Sidebar/UserProfile/UserProfileBubble";
+import { testReturnObject } from "./useAuth0MockReturn";
+import userEvent from "@testing-library/user-event";
 
 vi.mock("@auth0/auth0-react");
-
-const testUserProfile = {
-  email: "joshua28at@hotmail.com",
-  name: "Josh April",
-  nickname: "joshua28at",
-  picture:
-    "https://s.gravatar.com/avatar/4ed92118b39f9dc8a7f157bb1a03c4fc?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fja.png",
-};
 
 describe("Sidebar", () => {
   describe("Sidebar nav elements should render", () => {
     beforeEach(async () => {
       const auth0 = await import("@auth0/auth0-react");
       auth0.useAuth0 = vi.fn().mockReturnValue({
+        ...testReturnObject,
         isAuthenticated: true,
         isLoading: false,
-        user: testUserProfile,
       });
     });
 
@@ -46,9 +38,9 @@ describe("Sidebar", () => {
     beforeEach(async () => {
       const auth0 = await import("@auth0/auth0-react");
       auth0.useAuth0 = vi.fn().mockReturnValue({
+        ...testReturnObject,
         isAuthenticated: true,
         isLoading: false,
-        user: testUserProfile,
       });
     });
 
@@ -61,7 +53,36 @@ describe("Sidebar", () => {
 
     test("User fullname should be displayed", () => {
       render(<UserProfileBubble />);
-      expect(screen.getByText(`${testUserProfile.name}`)).toBeTruthy();
+      expect(screen.getByText(`${testReturnObject.user.name}`)).toBeTruthy();
+    });
+
+    test("Logout button should be displayed", () => {
+      render(<UserProfileBubble />);
+      expect(screen.getByTestId(`logoutButton`)).toBeTruthy();
+    });
+  });
+
+  describe("User Profile Auth0 interaction", () => {
+    afterEach(() => vi.restoreAllMocks());
+
+    test("Logout button should log a user out", async () => {
+      const user = userEvent.setup();
+      const spy = vi.fn();
+
+      const auth0 = await import("@auth0/auth0-react");
+
+      auth0.useAuth0 = vi.fn().mockReturnValue({
+        ...testReturnObject,
+        isAuthenticated: true,
+        isLoading: false,
+        logout: spy,
+      });
+
+      render(<UserProfileBubble />);
+      const logoutButton = screen.getByTestId(`logoutButton`);
+
+      await user.click(logoutButton);
+      expect(spy).toHaveBeenCalled();
     });
   });
 });
