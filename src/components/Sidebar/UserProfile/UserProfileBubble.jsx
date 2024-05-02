@@ -10,6 +10,7 @@ export default function UserProfileBubble() {
     <section className="flex h-full w-full flex-row items-center">
       <UserProfilePicture />
       <SideBarButton buttonText={`${user.name}`} />
+
       <button
         aria-label="logout button"
         className="ml-auto  text-gray-400 duration-500 hover:cursor-pointer hover:text-white"
