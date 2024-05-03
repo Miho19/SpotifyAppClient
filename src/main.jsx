@@ -11,6 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       clientId={import.meta.env.VITE_AUTH0CLIENTID}
       authorizationParams={{
         redirect_uri: window.location.origin,
+        scope: "user-read-email user-read-private playlist-read-private",
       }}
     >
       <App />
