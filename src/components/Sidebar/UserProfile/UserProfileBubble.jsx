@@ -1,27 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SideBarButton from "../SideBarButton";
 import UserProfilePicture from "./UserProfilePicture";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CiLogout } from "react-icons/ci";
-import { spotifyUserDetailsGetFromServer } from "../../../utilities/spotifyUtilities";
+import { SpotifyContext } from "../../../context/SpotifyContext";
 
 export default function UserProfileBubble() {
   const { user, logout, isAuthenticated } = useAuth0();
-  const [spotifyUser, setSpotifyUser] = useState({});
-
-  useEffect(() => {
-    if (!isAuthenticated) return;
-    async function fetchUserDetails() {
-      const response = await spotifyUserDetailsGetFromServer(user);
-      setSpotifyUser({ ...response });
-    }
-    fetchUserDetails();
-  }, [spotifyUser, isAuthenticated, user]);
+  const { spotifyProfile } = useContext(SpotifyContext);
 
   return (
     <section className="flex h-full w-full flex-row items-center">
       <UserProfilePicture />
-      <SideBarButton buttonText={`${spotifyUser?.name}`} />
+      <SideBarButton buttonText={`${spotifyProfile?.name}`} />
 
       <button
         aria-label="logout button"

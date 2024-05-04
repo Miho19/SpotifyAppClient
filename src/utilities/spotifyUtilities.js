@@ -1,4 +1,4 @@
-async function spotifyUserDetailsGetFromServer(user) {
+async function spotifyUserDetailsGetFromServer(auth0UserID) {
   const options = {
     mode: "cors",
     method: "POST",
@@ -6,7 +6,7 @@ async function spotifyUserDetailsGetFromServer(user) {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ auth0ID: user.sub }),
+    body: JSON.stringify({ auth0ID: auth0UserID }),
   };
 
   const response = await fetch("http://localhost:3000/auth0", options);
