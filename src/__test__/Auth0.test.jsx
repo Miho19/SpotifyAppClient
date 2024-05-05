@@ -2,6 +2,8 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, test, afterEach, vi } from "vitest";
 import { testReturnObject } from "./useAuth0MockReturn";
 import App from "../App";
+import { SpotifyContext } from "../context/SpotifyContext";
+import { spotifyProfile } from "./spotifyTestUtilities";
 
 vi.mock("@auth0/auth0-react");
 
@@ -16,7 +18,11 @@ describe("Auth0", () => {
       isLoading: false,
     });
 
-    render(<App />);
+    render(
+      <SpotifyContext.Provider value={{ spotifyProfile }}>
+        <App />
+      </SpotifyContext.Provider>,
+    );
     const loginElement = screen.getByText("Login");
     expect(loginElement).toBeTruthy();
   });
@@ -29,7 +35,11 @@ describe("Auth0", () => {
       isLoading: false,
     });
 
-    render(<App />);
+    render(
+      <SpotifyContext.Provider value={{ spotifyProfile }}>
+        <App />
+      </SpotifyContext.Provider>,
+    );
     const HomeSideBarElement = screen.getByText("Home");
     expect(HomeSideBarElement).toBeTruthy();
   });

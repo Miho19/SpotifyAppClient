@@ -5,6 +5,8 @@ import UserProfileBubble from "../components/Sidebar/UserProfile/UserProfileBubb
 import { testReturnObject } from "./useAuth0MockReturn";
 import userEvent from "@testing-library/user-event";
 import Navbar from "../components/Sidebar/Navbar/Navbar";
+import { SpotifyContext } from "../context/SpotifyContext";
+import { spotifyProfile } from "./spotifyTestUtilities";
 
 vi.mock("@auth0/auth0-react");
 
@@ -22,7 +24,11 @@ describe("Sidebar", () => {
     afterEach(() => vi.restoreAllMocks());
 
     test("User profile nav rendered", () => {
-      render(<App />);
+      render(
+        <SpotifyContext.Provider value={{ spotifyProfile }}>
+          <App />
+        </SpotifyContext.Provider>,
+      );
       const usernameButton = screen.getByText(`${testReturnObject.user.name}`);
       const profilePicture = screen.getByAltText(
         `${testReturnObject.user.name} profile picture`,
@@ -33,12 +39,20 @@ describe("Sidebar", () => {
     });
 
     test("User playlist nav rendered", () => {
-      render(<App />);
+      render(
+        <SpotifyContext.Provider value={{ spotifyProfile }}>
+          <App />
+        </SpotifyContext.Provider>,
+      );
       expect(screen.getByText("User Playlist")).toBeDefined();
     });
 
     test("Main nav rendered should display Home button", () => {
-      render(<App />);
+      render(
+        <SpotifyContext.Provider value={{ spotifyProfile }}>
+          <App />
+        </SpotifyContext.Provider>,
+      );
       expect(screen.getByText("Home")).toBeDefined();
     });
   });
@@ -60,7 +74,12 @@ describe("Sidebar", () => {
           logout: spy,
         });
 
-        render(<UserProfileBubble />);
+        render(
+          <SpotifyContext.Provider value={{ spotifyProfile }}>
+            <UserProfileBubble />
+          </SpotifyContext.Provider>,
+        );
+
         const logoutButton = screen.getByRole("button", {
           name: "logout button",
         });
@@ -84,7 +103,12 @@ describe("Sidebar", () => {
     afterEach(() => vi.restoreAllMocks());
 
     test("Navbar should render a home, party playlist button", () => {
-      render(<Navbar />);
+      render(
+        <SpotifyContext.Provider value={{ spotifyProfile }}>
+          <Navbar />
+        </SpotifyContext.Provider>,
+      );
+
       const homeButton = screen.getByRole("button", { name: "Home Page" });
       const partyPlaylistButton = screen.getByRole("button", {
         name: "Party Playlist",
