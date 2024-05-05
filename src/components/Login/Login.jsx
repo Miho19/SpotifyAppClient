@@ -9,7 +9,7 @@ export default function Login() {
         className="h-14 w-60 rounded-full bg-gradient-to-l from-[#525252] to-[#959595] text-2xl font-bold text-white duration-75 hover:bg-zinc-400 hover:opacity-95"
         onClick={() => loginWithRedirect()}
       >
-        Log In
+        Login
       </button>
     </main>
   );
