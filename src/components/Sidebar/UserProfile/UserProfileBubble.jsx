@@ -6,7 +6,7 @@ import { CiLogout } from "react-icons/ci";
 import { SpotifyContext } from "../../../context/SpotifyContext";
 
 export default function UserProfileBubble() {
-  const { user, logout, isAuthenticated } = useAuth0();
+  const { logout } = useAuth0();
   const { spotifyProfile } = useContext(SpotifyContext);
 
   return (

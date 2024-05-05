@@ -9,6 +9,8 @@ function SpotifyContextProvider({ children }) {
 
   const { user, isAuthenticated } = useAuth0();
 
+  console.log(isAuthenticated);
+
   useEffect(() => {
     if (!isAuthenticated) return;
 
@@ -16,10 +18,12 @@ function SpotifyContextProvider({ children }) {
       const response = await spotifyUserDetailsGetFromServer(user.sub);
       return response;
     }
-    const userProfile = fetchUserDetails();
-
-    userProfile
-      .then((response) => setSpotifyProfile({ ...response }))
+    fetchUserDetails()
+      .then((response) =>
+        setSpotifyProfile((prev) => {
+          return { ...prev, ...response };
+        }),
+      )
       .catch((err) => console.log(err));
   }, [user, isAuthenticated]);
 
