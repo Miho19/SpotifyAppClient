@@ -1,12 +1,16 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, test, vi, afterEach, beforeEach } from "vitest";
 import App from "../App";
 import UserProfileBubble from "../components/Sidebar/UserProfile/UserProfileBubble";
 import { testReturnObject } from "./useAuth0MockReturn";
 import userEvent from "@testing-library/user-event";
 import Navbar from "../components/Sidebar/Navbar/Navbar";
-import { SpotifyContext } from "../context/SpotifyContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { spotifyProfile } from "./spotifyTestUtilities";
+import useSpotifyProfile from "../hooks/useSpotifyProfile";
+import nock from "nock";
+
+const queryClient = new QueryClient();
 
 vi.mock("@auth0/auth0-react");
 
@@ -23,12 +27,19 @@ describe("Sidebar", () => {
 
     afterEach(() => vi.restoreAllMocks());
 
-    test("User profile nav rendered", () => {
-      render(
-        <SpotifyContext.Provider value={{ spotifyProfile }}>
+    test("User profile nav rendered", async () => {
+      const nockMockResponse = nock("http://localhost:3000")
+        .post("/auth0", { auth0ID: "random id" })
+        .reply(200, spotifyProfile);
+
+      const rendered = render(
+        <QueryClientProvider client={queryClient}>
           <App />
-        </SpotifyContext.Provider>,
+        </QueryClientProvider>,
       );
+
+      await waitFor(() => rendered.getByText(`${testReturnObject.user.name}`));
+
       const usernameButton = screen.getByText(`${testReturnObject.user.name}`);
       const profilePicture = screen.getByAltText(
         `${testReturnObject.user.name} profile picture`,
@@ -40,18 +51,18 @@ describe("Sidebar", () => {
 
     test("User playlist nav rendered", () => {
       render(
-        <SpotifyContext.Provider value={{ spotifyProfile }}>
+        <QueryClientProvider client={queryClient}>
           <App />
-        </SpotifyContext.Provider>,
+        </QueryClientProvider>,
       );
       expect(screen.getByText("User Playlist")).toBeDefined();
     });
 
     test("Main nav rendered should display Home button", () => {
       render(
-        <SpotifyContext.Provider value={{ spotifyProfile }}>
+        <QueryClientProvider client={queryClient}>
           <App />
-        </SpotifyContext.Provider>,
+        </QueryClientProvider>,
       );
       expect(screen.getByText("Home")).toBeDefined();
     });
@@ -75,9 +86,9 @@ describe("Sidebar", () => {
         });
 
         render(
-          <SpotifyContext.Provider value={{ spotifyProfile }}>
+          <QueryClientProvider client={queryClient}>
             <UserProfileBubble />
-          </SpotifyContext.Provider>,
+          </QueryClientProvider>,
         );
 
         const logoutButton = screen.getByRole("button", {
@@ -104,9 +115,9 @@ describe("Sidebar", () => {
 
     test("Navbar should render a home, party playlist button", () => {
       render(
-        <SpotifyContext.Provider value={{ spotifyProfile }}>
+        <QueryClientProvider client={queryClient}>
           <Navbar />
-        </SpotifyContext.Provider>,
+        </QueryClientProvider>,
       );
 
       const homeButton = screen.getByRole("button", { name: "Home Page" });

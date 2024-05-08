@@ -2,8 +2,9 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, test, afterEach, vi } from "vitest";
 import { testReturnObject } from "./useAuth0MockReturn";
 import App from "../App";
-import { SpotifyContext } from "../context/SpotifyContext";
-import { spotifyProfile } from "./spotifyTestUtilities";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 vi.mock("@auth0/auth0-react");
 
@@ -19,9 +20,9 @@ describe("Auth0", () => {
     });
 
     render(
-      <SpotifyContext.Provider value={{ spotifyProfile }}>
+      <QueryClientProvider client={queryClient}>
         <App />
-      </SpotifyContext.Provider>,
+      </QueryClientProvider>,
     );
     const loginElement = screen.getByText("Login");
     expect(loginElement).toBeTruthy();
@@ -36,9 +37,9 @@ describe("Auth0", () => {
     });
 
     render(
-      <SpotifyContext.Provider value={{ spotifyProfile }}>
+      <QueryClientProvider client={queryClient}>
         <App />
-      </SpotifyContext.Provider>,
+      </QueryClientProvider>,
     );
     const HomeSideBarElement = screen.getByText("Home");
     expect(HomeSideBarElement).toBeTruthy();
