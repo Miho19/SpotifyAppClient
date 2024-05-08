@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from "react";
 import SideBarButton from "../SideBarButton";
 import UserProfilePicture from "./UserProfilePicture";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CiLogout } from "react-icons/ci";
-import { SpotifyContext } from "../../../context/SpotifyContext";
+import useSpotifyProfile from "../../../hooks/useSpotifyProfile";
 
 export default function UserProfileBubble() {
   const { logout } = useAuth0();
-  const { spotifyProfile } = useContext(SpotifyContext);
+
+  const spotifyProfile = useSpotifyProfile();
 
   return (
     <section className="flex h-full w-full flex-row items-center">
       <UserProfilePicture />
-      <SideBarButton buttonText={`${spotifyProfile?.name}`} />
+      <SideBarButton buttonText={`${spotifyProfile?.data?.displayName}`} />
 
       <button
         aria-label="logout button"

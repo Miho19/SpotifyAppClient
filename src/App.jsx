@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "./App.css";
 import LoadingPage from "./components/Loading/LoadingPage";
 import Login from "./components/Login/Login";
@@ -7,7 +6,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   if (isLoading) return <LoadingPage title="Fetching User" />;
 
