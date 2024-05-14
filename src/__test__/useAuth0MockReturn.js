@@ -2,7 +2,7 @@ const testReturnObject = {
   isAuthenticated: true,
   isLoading: false,
   user: {
-    sub: "",
+    sub: "auth0TestObjectSUB",
   },
 };
 
