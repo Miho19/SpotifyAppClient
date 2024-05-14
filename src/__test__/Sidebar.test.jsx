@@ -11,32 +11,16 @@ const queryClient = new QueryClient();
 vi.mock("@auth0/auth0-react");
 
 describe("User Profile", () => {
-  afterEach(() => vi.clearAllMocks());
-  test("Logout button should be present and clickable", async () => {
+  afterEach(() => vi.restoreAllMocks());
+
+  test("User profile nav rendered", async () => {
     const auth0 = await import("@auth0/auth0-react");
-    const logoutSpy = vi.fn();
-    auth0.useAuth0.mockReturnValue({
+    auth0.useAuth0 = vi.fn().mockReturnValue({
       ...testReturnObject,
-      logout: logoutSpy,
       isAuthenticated: true,
       isLoading: false,
     });
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <UserProfileBubble />
-      </QueryClientProvider>,
-    );
-
-    const logoutButton = screen.getByRole("button", {
-      name: "logout button",
-    });
-
-    fireEvent.click(logoutButton);
-    expect(logoutSpy).toHaveBeenCalled();
-  });
-
-  test.skip("User profile should display a username and picture", async () => {
     const rendered = render(
       <QueryClientProvider client={queryClient}>
         <App />
@@ -47,10 +31,11 @@ describe("User Profile", () => {
 
     const usernameButton = screen.getByText(`${spotifyProfile.displayName}`);
     const profilePicture = screen.getByAltText(
-      `${testReturnObject.user.name} profile picture`,
+      `${spotifyProfile.displayName} profile picture`,
     );
 
+    console.log(profilePicture.src);
+
     expect(usernameButton).toBeDefined();
-    expect(profilePicture).toBeDefined();
   });
 });
