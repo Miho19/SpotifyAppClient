@@ -12,11 +12,28 @@ async function spotifyUserDetailsGetFromServer(auth0UserID) {
   };
 
   const response = await fetch("http://localhost:3000/auth0", options);
-  console.log(`json body: `);
 
   const body = await response.json();
 
   return body;
 }
 
-export { spotifyUserDetailsGetFromServer };
+async function spotifyUserGetProfilePlaylists() {
+  const options = {
+    mode: "cors",
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = await fetch(
+    "http://localhost:3000/spotify/me/playlists",
+    options,
+  );
+
+  const body = await response.json();
+  return body;
+}
+
+export { spotifyUserDetailsGetFromServer, spotifyUserGetProfilePlaylists };

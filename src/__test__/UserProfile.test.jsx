@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
   describe,
   expect,
@@ -51,5 +51,31 @@ describe("User Profile", () => {
 
     expect(usernameButton).toBeDefined();
     expect(profilePicture.src).toBe(spotifyProfile.image.url);
+  });
+
+  test("Logout button should call auth0 Logout function", async () => {
+    const auth0 = await import("@auth0/auth0-react");
+    const spy = vi.fn();
+
+    auth0.useAuth0 = vi.fn().mockReturnValue({
+      ...testReturnObject,
+      isAuthenticated: true,
+      isLoading: false,
+      logout: spy,
+    });
+
+    const rendered = render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>,
+    );
+
+    const logoutButton = rendered.getByRole("button", {
+      name: "logout button",
+    });
+    expect(logoutButton).toBeTruthy();
+
+    fireEvent.click(logoutButton);
+    expect(spy).toBeCalledTimes(1);
   });
 });
