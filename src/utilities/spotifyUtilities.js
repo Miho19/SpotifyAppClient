@@ -12,8 +12,11 @@ async function spotifyUserDetailsGetFromServer(auth0UserID) {
   };
 
   const response = await fetch("http://localhost:3000/auth0", options);
+  console.log(`json body: `);
 
-  return response.json();
+  const body = await response.json();
+
+  return body;
 }
 
 export { spotifyUserDetailsGetFromServer };

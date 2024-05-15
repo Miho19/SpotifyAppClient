@@ -1,17 +1,32 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import { describe, expect, test, vi, afterEach, beforeEach } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import {
+  describe,
+  expect,
+  test,
+  vi,
+  afterEach,
+  beforeAll,
+  afterAll,
+} from "vitest";
 import App from "../App";
-import UserProfileBubble from "../components/Sidebar/UserProfile/UserProfileBubble";
 import { testReturnObject } from "./useAuth0MockReturn";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { spotifyProfile } from "./spotifyTestUtilities";
+
+import { worker } from "../msw/workers";
 
 const queryClient = new QueryClient();
 
 vi.mock("@auth0/auth0-react");
 
 describe("User Profile", () => {
-  afterEach(() => vi.restoreAllMocks());
+  beforeAll(() => worker.listen());
+  afterAll(() => worker.close());
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    worker.restoreHandlers();
+  });
 
   test("User profile nav rendered", async () => {
     const auth0 = await import("@auth0/auth0-react");
@@ -34,8 +49,7 @@ describe("User Profile", () => {
       `${spotifyProfile.displayName} profile picture`,
     );
 
-    console.log(profilePicture.src);
-
     expect(usernameButton).toBeDefined();
+    expect(profilePicture.src).toBe(spotifyProfile.image.url);
   });
 });

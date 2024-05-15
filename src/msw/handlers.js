@@ -1,9 +1,9 @@
 import { http, HttpResponse } from "msw";
-import { spotifyProfile } from "../../src/__test__/spotifyTestUtilities";
+import { spotifyProfile } from "../__test__/spotifyTestUtilities";
 
 export const handlers = [
   http.post("http://localhost:3000/auth0", () => {
-    return HttpResponse.json({ ...spotifyProfile });
+    return HttpResponse.json({ ...spotifyProfile }, { status: 200 });
   }),
 ];
 
