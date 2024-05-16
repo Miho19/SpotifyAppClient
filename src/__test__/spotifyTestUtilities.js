@@ -23,6 +23,17 @@ const spotifyUserPlaylists = {
       link: "https://open.spotify.com/playlist/6F9tO7GfRUq3tkIwW3LqOi",
       tracks: [],
     },
+    {
+      id: "5xwUgrmhLWEBHTCOyZl1fw",
+      image: {
+        url: "https://mosaic.scdn.co/640/ab67616d00001e02083975ba2878d4f79329dd97ab67616d00001e022e6cb000abc707be89b5ce7bab67616d00001e026365f4a97a29922f5963e1c6ab67616d00001e02659cd4673230913b3918e0d5",
+      },
+      name: "MOVE on",
+      owner: "Josh April",
+      type: "playlist",
+      link: "https://open.spotify.com/user/1253470477",
+      tracks: [],
+    },
   ],
 };
 

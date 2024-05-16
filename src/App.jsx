@@ -13,7 +13,10 @@ function App() {
   if (!isAuthenticated) return <Login />;
 
   return (
-    <main className="flex h-[calc(100vh)] w-full bg-black" data-testid="">
+    <main
+      className="flex h-[calc(100vh)] w-full bg-[#191414] font-sans"
+      data-testid=""
+    >
       <Sidebar />
       <section className="h-full w-3/4 grow">
         <Home />

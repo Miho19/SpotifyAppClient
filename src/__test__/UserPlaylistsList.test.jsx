@@ -8,7 +8,7 @@ import {
   test,
   vi,
 } from "vitest";
-import { worker } from "../msw/workers";
+import { worker } from "../msw/broswer";
 import { testReturnObject } from "./useAuth0MockReturn";
 import App from "../App";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

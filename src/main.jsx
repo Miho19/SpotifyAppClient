@@ -27,4 +27,12 @@ const root = (
   </React.StrictMode>
 );
 
-ReactDOM.createRoot(document.getElementById("root")).render(root);
+async function enableMocking() {
+  if (process.env.NODE_ENV !== "development") return;
+  const { broswerWorker } = await import("./msw/broswer.js");
+  return broswerWorker.start();
+}
+
+enableMocking().then(() =>
+  ReactDOM.createRoot(document.getElementById("root")).render(root),
+);
