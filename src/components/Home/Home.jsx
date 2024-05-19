@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Home() {
-  return <div>Placeholder</div>;
+  return <div className="h-full w-full text-white">Placeholder</div>;
 }

@@ -1,13 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
 import "./index.css";
 import { Auth0Provider } from "@auth0/auth0-react";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "./routes/Root.jsx";
+import Login from "./components/Login/Login.jsx";
+import Home from "./components/Home/Home.jsx";
 
 const queryClient = new QueryClient();
+
+const router = createBrowserRouter([
+  {
+    element: <Root />,
+    errorElement: <h1>Error Page</h1>,
+    children: [{ path: "/", element: <Home /> }],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+]);
 
 const root = (
   <React.StrictMode>
@@ -20,7 +34,7 @@ const root = (
           scope: "user-read-email user-read-private playlist-read-private",
         }}
       >
-        <App />
+        <RouterProvider router={router} />
       </Auth0Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
