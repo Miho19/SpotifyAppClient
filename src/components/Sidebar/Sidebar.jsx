@@ -1,7 +1,6 @@
 import Navbar from "./Navbar/Navbar";
 import UserProfile from "./UserProfile/UserProfile";
 import UserPlaylists from "./UserPlaylists/UserPlaylists";
-import { Fragment } from "react";
 
 export default function Sidebar() {
   return (

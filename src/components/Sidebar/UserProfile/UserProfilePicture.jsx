@@ -4,12 +4,10 @@ export default function UserProfilePicture() {
   const spotifyProfile = useSpotifyProfile();
 
   return (
-    <section className="mr-3">
-      <img
-        src={spotifyProfile?.data?.image?.url}
-        alt={`${spotifyProfile?.data?.displayName} profile picture`}
-        className="h-10 w-10 rounded-full border-solid border-black"
-      />
-    </section>
+    <img
+      src={spotifyProfile?.data?.image?.url}
+      alt={`${spotifyProfile?.data?.displayName} profile picture`}
+      className="max-h-10 min-h-10 min-w-10 max-w-10 cursor-pointer overflow-hidden rounded-full border-white border-opacity-30  duration-100 hover:border"
+    />
   );
 }

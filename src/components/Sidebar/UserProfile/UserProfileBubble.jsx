@@ -10,19 +10,10 @@ export default function UserProfileBubble() {
   const spotifyProfile = useSpotifyProfile();
 
   return (
-    <section className="flex h-full w-full flex-row items-center">
+    <section className="flex h-full w-full flex-row items-center justify-center gap-3 md:justify-start">
       <UserProfilePicture />
-      <SideBarButton buttonText={`${spotifyProfile?.data?.displayName}`} />
 
-      <button
-        aria-label="logout button"
-        className="ml-auto  text-gray-400 duration-500 hover:cursor-pointer hover:text-white"
-        onClick={() =>
-          logout({ logoutParams: { returnTo: window.location.origin } })
-        }
-      >
-        <CiLogout className="h-8 w-8" />
-      </button>
+      <button className="hidden h-full w-full text-left text-sm font-bold text-gray-400 duration-500 hover:cursor-pointer hover:text-gray-100 md:inline">{`${spotifyProfile?.data?.displayName}`}</button>
     </section>
   );
 }

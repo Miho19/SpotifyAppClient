@@ -17,7 +17,7 @@ export default function Navbar() {
         aria-label="Party Playlist"
       >
         <RiBeerLine className="h-6 w-6" />
-        <p className="md:inlin hidden  font-bold">Party Playlist</p>
+        <p className="md:inlin hidden  font-bold md:inline">Party Playlist</p>
       </button>
     </SidebarContainer>
   );

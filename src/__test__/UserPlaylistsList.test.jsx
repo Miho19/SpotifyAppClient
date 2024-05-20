@@ -8,27 +8,28 @@ import {
   test,
   vi,
 } from "vitest";
-import { worker } from "../msw/broswer";
+import { serverWorker } from "../msw/server";
 import { testReturnObject } from "./useAuth0MockReturn";
-import App from "../App";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, waitFor } from "@testing-library/react";
 import { spotifyUserPlaylists } from "./spotifyTestUtilities";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { routes } from "./router";
 
 const queryClient = new QueryClient();
 vi.mock("@auth0/auth0-react");
 
 describe("User Playlist Sidebar list", () => {
   beforeAll(() => {
-    worker.listen();
+    serverWorker.listen();
   });
 
   afterAll(() => {
-    worker.close();
+    serverWorker.close();
   });
 
   afterEach(() => {
-    worker.resetHandlers();
+    serverWorker.resetHandlers();
     vi.restoreAllMocks();
   });
 
@@ -42,9 +43,11 @@ describe("User Playlist Sidebar list", () => {
   });
 
   test("User Playlist Container has rendered", async () => {
+    const router = createMemoryRouter(routes);
+
     const rendered = render(
       <QueryClientProvider client={queryClient}>
-        <App />
+        <RouterProvider router={router} />
       </QueryClientProvider>,
     );
 
@@ -55,9 +58,11 @@ describe("User Playlist Sidebar list", () => {
   });
 
   test("A Playlist list item should be rendered", async () => {
+    const router = createMemoryRouter(routes);
+
     const rendered = render(
       <QueryClientProvider client={queryClient}>
-        <App />
+        <RouterProvider router={router} />
       </QueryClientProvider>,
     );
 

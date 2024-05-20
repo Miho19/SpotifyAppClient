@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, test, afterEach, vi } from "vitest";
 import { testReturnObject } from "./useAuth0MockReturn";
-import App from "../App";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { routes } from "./router";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 
 const queryClient = new QueryClient();
 
@@ -19,11 +20,15 @@ describe("Auth0", () => {
       isLoading: false,
     });
 
+    const router = createMemoryRouter(routes);
+
     render(
       <QueryClientProvider client={queryClient}>
-        <App />
+        <RouterProvider router={router} />
       </QueryClientProvider>,
     );
+
+    await waitFor(() => screen.getByText("Login"));
     const loginElement = screen.getByText("Login");
     expect(loginElement).toBeTruthy();
   });
@@ -36,9 +41,11 @@ describe("Auth0", () => {
       isLoading: false,
     });
 
+    const router = createMemoryRouter(routes);
+
     render(
       <QueryClientProvider client={queryClient}>
-        <App />
+        <RouterProvider router={router} />
       </QueryClientProvider>,
     );
     const HomeSideBarElement = screen.getByText("Home");
