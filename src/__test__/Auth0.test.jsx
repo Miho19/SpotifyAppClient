@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, test, afterEach, vi } from "vitest";
 import { testReturnObject } from "./useAuth0MockReturn";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { routes } from "./router";
+import { routes } from "../routes/router";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 
 const queryClient = new QueryClient();

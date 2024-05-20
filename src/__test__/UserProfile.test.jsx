@@ -14,7 +14,7 @@ import { spotifyProfile } from "./spotifyTestUtilities";
 
 import { serverWorker } from "../msw/server";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { routes } from "./router";
+import { routes } from "../routes/router";
 
 const queryClient = new QueryClient();
 

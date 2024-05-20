@@ -14,7 +14,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, waitFor } from "@testing-library/react";
 import { spotifyUserPlaylists } from "./spotifyTestUtilities";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { routes } from "./router";
+import { routes } from "../routes/router";
 
 const queryClient = new QueryClient();
 vi.mock("@auth0/auth0-react");

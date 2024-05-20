@@ -8,20 +8,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root.jsx";
 import Login from "./components/Login/Login.jsx";
 import Home from "./components/Home/Home.jsx";
+import { routes } from "./routes/router.jsx";
 
 const queryClient = new QueryClient();
 
-const router = createBrowserRouter([
-  {
-    element: <Root />,
-    errorElement: <h1>Error Page</h1>,
-    children: [{ path: "/", element: <Home /> }],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-]);
+const router = createBrowserRouter(routes);
 
 const root = (
   <React.StrictMode>
