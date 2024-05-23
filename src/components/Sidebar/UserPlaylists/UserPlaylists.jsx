@@ -19,8 +19,8 @@ export default function UserPlaylists() {
 
   return (
     <SidebarContainer>
-      <section data-testid="User Playlists" className="h-full w-full space-y-0">
-        {userPlaylistSidebarList}
+      <section data-testid="User Playlists" className="h-full w-full">
+        <nav className="h-full w-full space-y-1">{userPlaylistSidebarList}</nav>
       </section>
     </SidebarContainer>
   );

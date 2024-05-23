@@ -36,4 +36,25 @@ async function spotifyUserGetProfilePlaylists() {
   return body;
 }
 
-export { spotifyUserDetailsGetFromServer, spotifyUserGetProfilePlaylists };
+async function spotifyGetPlaylist(playlistID) {
+  const options = {
+    mode: "cors",
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = await fetch(
+    `http://localhost:3000/spotify/playlists/${playlistID}`,
+    options,
+  );
+  const body = await response.json();
+  return body;
+}
+
+export {
+  spotifyUserDetailsGetFromServer,
+  spotifyUserGetProfilePlaylists,
+  spotifyGetPlaylist,
+};

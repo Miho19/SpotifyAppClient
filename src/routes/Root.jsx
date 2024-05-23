@@ -9,12 +9,14 @@ export default function Root() {
   const navigator = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigator("/login");
+    if (!isLoading) {
+      if (!isAuthenticated) {
+        navigator("/login");
+      }
     }
+  }, [isLoading]);
 
-    if (isLoading) return <LoadingPage title="Fetching User" />;
-  }, [isAuthenticated]);
+  //if (isLoading) return <LoadingPage title="Fetching User" />;
 
   return (
     <main className="flex h-[calc(100vh)] w-full bg-[#191414] font-sans">
