@@ -1,15 +1,19 @@
 import useSpotifyUserPlaylists from "../../../hooks/useSpotifyUserPlaylists";
 import SidebarContainer from "../SidebarContainer";
 import UserPlaylistsListItem from "./UserPlaylistsListItem";
+import Loader from "react-js-loader";
 
 export default function UserPlaylists() {
   const spotifyUserPlaylistQuery = useSpotifyUserPlaylists();
 
-  if (spotifyUserPlaylistQuery.isLoading)
-    return <SidebarContainer>Loading...</SidebarContainer>;
-
-  if (!spotifyUserPlaylistQuery.isSuccess)
-    return <SidebarContainer>Loading...</SidebarContainer>;
+  if (spotifyUserPlaylistQuery.isLoading || !spotifyUserPlaylistQuery.isSuccess)
+    return (
+      <SidebarContainer>
+        <div className="h-full w-full">
+          <Loader type="bubble-top" bgColor="white" size={10} />
+        </div>
+      </SidebarContainer>
+    );
 
   const userPlaylistSidebarList = spotifyUserPlaylistQuery.data.items.map(
     (playlist) => {
