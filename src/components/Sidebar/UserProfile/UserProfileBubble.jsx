@@ -1,28 +1,42 @@
-import SideBarButton from "../SideBarButton";
 import UserProfilePicture from "./UserProfilePicture";
 import { useAuth0 } from "@auth0/auth0-react";
-import { CiLogout } from "react-icons/ci";
+
 import useSpotifyProfile from "../../../hooks/useSpotifyProfile";
 
+import Loader from "react-js-loader";
+
 export default function UserProfileBubble() {
-  const { logout } = useAuth0();
+  const { isAuthenticated, isLoading, logout } = useAuth0();
 
   const spotifyProfile = useSpotifyProfile();
+  // console.log(
+  //   `isAuth: ${isAuthenticated} loading: ${isLoading} spotify: ${spotifyProfile.isLoading}`,
+  // );
+
+  if (isLoading && !isAuthenticated) {
+    return (
+      <section className="h-full w-full border border-white">
+        <Loader type="bubble-top" bgColor="white" size={10} />;
+      </section>
+    );
+  }
 
   return (
-    <section className="flex h-full w-full flex-row items-center">
+    <button
+      onClick={() => {
+        logout({
+          logoutParams: {
+            returnTo: `${import.meta.env.VITE_AUTH0LOGOUTREDIRECT}`,
+          },
+        });
+      }}
+      className="group flex h-full w-full flex-row items-center justify-center gap-3 md:justify-start"
+    >
       <UserProfilePicture />
-      <SideBarButton buttonText={`${spotifyProfile?.data?.displayName}`} />
 
-      <button
-        aria-label="logout button"
-        className="ml-auto  text-gray-400 duration-500 hover:cursor-pointer hover:text-white"
-        onClick={() =>
-          logout({ logoutParams: { returnTo: window.location.origin } })
-        }
-      >
-        <CiLogout className="h-8 w-8" />
-      </button>
-    </section>
+      <p className=" hidden w-full  text-left text-sm font-bold text-gray-400 duration-500 group-hover:cursor-pointer group-hover:text-gray-100 md:inline">
+        {`${spotifyProfile?.data?.displayName}`}
+      </p>
+    </button>
   );
 }

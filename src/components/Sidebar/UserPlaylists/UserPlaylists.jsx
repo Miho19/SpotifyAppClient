@@ -8,6 +8,9 @@ export default function UserPlaylists() {
   if (spotifyUserPlaylistQuery.isLoading)
     return <SidebarContainer>Loading...</SidebarContainer>;
 
+  if (!spotifyUserPlaylistQuery.isSuccess)
+    return <SidebarContainer>Loading...</SidebarContainer>;
+
   const userPlaylistSidebarList = spotifyUserPlaylistQuery.data.items.map(
     (playlist) => {
       return <UserPlaylistsListItem key={playlist.id} {...playlist} />;
@@ -16,8 +19,8 @@ export default function UserPlaylists() {
 
   return (
     <SidebarContainer>
-      <section data-testid="User Playlists" className="h-full w-full space-y-0">
-        {userPlaylistSidebarList}
+      <section data-testid="User Playlists" className="h-full w-full">
+        <nav className="h-full w-full space-y-1">{userPlaylistSidebarList}</nav>
       </section>
     </SidebarContainer>
   );

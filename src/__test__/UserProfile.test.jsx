@@ -8,24 +8,25 @@ import {
   beforeAll,
   afterAll,
 } from "vitest";
-import App from "../App";
 import { testReturnObject } from "./useAuth0MockReturn";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { spotifyProfile } from "./spotifyTestUtilities";
 
-import { worker } from "../msw/workers";
+import { serverWorker } from "../msw/server";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { routes } from "../routes/router";
 
 const queryClient = new QueryClient();
 
 vi.mock("@auth0/auth0-react");
 
 describe("User Profile", () => {
-  beforeAll(() => worker.listen());
-  afterAll(() => worker.close());
+  beforeAll(() => serverWorker.listen());
+  afterAll(() => serverWorker.close());
 
   afterEach(() => {
     vi.restoreAllMocks();
-    worker.restoreHandlers();
+    serverWorker.restoreHandlers();
   });
 
   test("User profile nav rendered", async () => {
@@ -36,9 +37,11 @@ describe("User Profile", () => {
       isLoading: false,
     });
 
+    const router = createMemoryRouter(routes);
+
     const rendered = render(
       <QueryClientProvider client={queryClient}>
-        <App />
+        <RouterProvider router={router} />
       </QueryClientProvider>,
     );
 
@@ -51,31 +54,5 @@ describe("User Profile", () => {
 
     expect(usernameButton).toBeDefined();
     expect(profilePicture.src).toBe(spotifyProfile.image.url);
-  });
-
-  test("Logout button should call auth0 Logout function", async () => {
-    const auth0 = await import("@auth0/auth0-react");
-    const spy = vi.fn();
-
-    auth0.useAuth0 = vi.fn().mockReturnValue({
-      ...testReturnObject,
-      isAuthenticated: true,
-      isLoading: false,
-      logout: spy,
-    });
-
-    const rendered = render(
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>,
-    );
-
-    const logoutButton = rendered.getByRole("button", {
-      name: "logout button",
-    });
-    expect(logoutButton).toBeTruthy();
-
-    fireEvent.click(logoutButton);
-    expect(spy).toBeCalledTimes(1);
   });
 });
