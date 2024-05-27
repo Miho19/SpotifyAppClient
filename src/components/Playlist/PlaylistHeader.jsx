@@ -1,7 +1,7 @@
 export default function PlaylistHeader({ playlistData }) {
   console.log(playlistData);
   return (
-    <header className="flex h-full w-full items-center border border-white bg-gradient-to-b from-gray-600 p-3">
+    <header className="flex h-full w-full items-center  bg-gradient-to-b from-gray-600 p-3">
       <img
         className="h-40 w-40"
         src={playlistData.image?.url}
@@ -16,7 +16,7 @@ export default function PlaylistHeader({ playlistData }) {
             {playlistData.owner}
           </span>
           <span className="text-gray-400">
-            &#9900; {playlistData.tracks?.length}
+            &#9900; {playlistData.tracks?.total}
           </span>
         </div>
       </div>
