@@ -1,4 +1,5 @@
 import React from "react";
+import PlaylistSongPopularityBar from "./PlaylistSongPopularityBar";
 
 export default function PlaylistSong({ songData, order }) {
   console.log(songData);
@@ -17,6 +18,7 @@ export default function PlaylistSong({ songData, order }) {
         <p className="text-md text-white">{songData.name}</p>
         <p className="text-xs text-gray-400">{artistString}</p>
       </div>
+      <PlaylistSongPopularityBar songPopularity={songData.popularity} />
     </div>
   );
 }
