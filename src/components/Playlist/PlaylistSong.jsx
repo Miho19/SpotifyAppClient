@@ -2,8 +2,6 @@ import React from "react";
 import PlaylistSongPopularityBar from "./PlaylistSongPopularityBar";
 
 export default function PlaylistSong({ songData, order }) {
-  console.log(songData);
-
   const artistString = songData.artist.map((artist) => artist.name).join(",");
 
   return (

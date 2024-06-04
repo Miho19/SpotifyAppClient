@@ -62,20 +62,6 @@ const spotifyPlaylist = {
         artist: [{ name: "Pity Party (Girls Club)" }, { name: "Lucys" }],
         durationMS: 128000,
       },
-      {
-        popularity: 74,
-        id: "42LY6qYxu3L6nJ7Dt72gNy",
-        name: "I hope that you think of me",
-        album: {
-          id: "7adFlPgcQWFfPHcgNgZhUI",
-          image: {
-            url: "https://i.scdn.co/image/ab67616d0000b2736365f4a97a29922f5963e1c6",
-          },
-          name: "Hard Times / Bad Trips",
-        },
-        artist: [{ name: "Pity Party (Girls Club)" }, { name: "Lucys" }],
-        durationMS: 128000,
-      },
     ],
   },
 };
