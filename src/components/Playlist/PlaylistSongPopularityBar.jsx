@@ -42,7 +42,7 @@ export default function PlaylistSongPopularityBar({
   );
 
   return (
-    <div className="text-whtie flex h-full w-36 items-center justify-start space-x-1">
+    <div className="text-whtie hidden h-full w-36 items-center justify-start space-x-1 md:flex">
       {popularityBars}
       <div className="hidden group-hover:flex"></div>
     </div>
