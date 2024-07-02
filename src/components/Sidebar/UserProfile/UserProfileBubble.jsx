@@ -15,9 +15,9 @@ export default function UserProfileBubble() {
 
   if (isLoading && !isAuthenticated) {
     return (
-      <section className="h-full w-full border border-white">
-        <Loader type="bubble-top" bgColor="white" size={10} />;
-      </section>
+      <div className="h-full w-full">
+        <Loader type="bubble-top" bgColor="white" size={10} />
+      </div>
     );
   }
 

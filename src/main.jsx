@@ -31,6 +31,7 @@ const root = (
 
 async function enableMocking() {
   if (process.env.NODE_ENV !== "development") return;
+  return;
   const { broswerWorker } = await import("./msw/broswer.js");
   return broswerWorker.start();
 }

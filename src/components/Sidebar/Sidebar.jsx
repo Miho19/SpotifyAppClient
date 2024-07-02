@@ -4,7 +4,7 @@ import UserPlaylists from "./UserPlaylists/UserPlaylists";
 
 export default function Sidebar() {
   return (
-    <nav className="flex h-full w-full flex-col bg-black px-2">
+    <nav className="flex h-full w-full flex-col bg-black px-2 py-2">
       <UserProfile />
       <Navbar />
       <UserPlaylists />

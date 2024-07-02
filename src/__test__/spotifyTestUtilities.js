@@ -44,28 +44,26 @@ const spotifyPlaylist = {
   owner: "Josh April",
   type: "playlist",
   link: "https://open.spotify.com/user/1253470477",
-  tracks: [
-    {
-      total: 15,
-      next: null,
-      previous: null,
-      items: [
-        {
-          popularity: 74,
-          id: "42LY6qYxu3L6nJ7Dt72gNy",
-          name: "I hope that you think of me",
-          album: {
-            id: "7adFlPgcQWFfPHcgNgZhUI",
-            image: {
-              url: "https://i.scdn.co/image/ab67616d0000b2736365f4a97a29922f5963e1c6",
-            },
+  tracks: {
+    total: 15,
+    next: null,
+    previous: null,
+    items: [
+      {
+        popularity: 74,
+        id: "42LY6qYxu3L6nJ7Dt72gNy",
+        name: "I hope that you think of me",
+        album: {
+          id: "7adFlPgcQWFfPHcgNgZhUI",
+          image: {
+            url: "https://i.scdn.co/image/ab67616d0000b2736365f4a97a29922f5963e1c6",
           },
-          artist: [{ name: "Pity Party (Girls Club)" }, { name: "Lucys" }],
-          durationMS: 128000,
         },
-      ],
-    },
-  ],
+        artist: [{ name: "Pity Party (Girls Club)" }, { name: "Lucys" }],
+        durationMS: 128000,
+      },
+    ],
+  },
 };
 
 export { spotifyProfile, spotifyUserPlaylists, spotifyPlaylist };

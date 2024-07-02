@@ -17,7 +17,7 @@ export default function UserPlaylistsListItem({
       to={`/playlist/${id}`}
     >
       <img
-        src={image?.url}
+        src={image}
         alt={`${name} playlist image`}
         className="h-10 w-10 rounded-md"
       />

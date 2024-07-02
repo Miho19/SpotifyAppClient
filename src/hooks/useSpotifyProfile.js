@@ -9,7 +9,6 @@ export default function useSpotifyProfile() {
     queryKey: ["spotifyProfile", "me"],
     queryFn: () => spotifyUserDetailsGetFromServer(user?.sub),
     enabled: isAuthenticated,
-    staleTime: 15 * 60 * 1000,
   });
 
   return spotifyProfileQuery;
