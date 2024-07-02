@@ -21,7 +21,7 @@ export default function PlaylistSongPopularityBar({
         return (
           <div
             key={index}
-            className="flex h-5 w-2 items-end overflow-hidden rounded-lg bg-gray-500"
+            className="flex h-5 w-2 items-end overflow-hidden rounded-sm bg-gray-700"
           >
             <div
               className="w-full bg-gray-400"
@@ -33,17 +33,18 @@ export default function PlaylistSongPopularityBar({
 
       if (index < parseInt(wholeBars)) {
         return (
-          <div key={index} className="h-5 w-2 rounded-lg bg-gray-400"></div>
+          <div key={index} className="h-5 w-2 rounded-sm bg-gray-400"></div>
         );
       }
 
-      return <div key={index} className="h-5 w-2 rounded-lg bg-gray-500"></div>;
+      return <div key={index} className="h-5 w-2 rounded-sm bg-gray-700"></div>;
     },
   );
 
   return (
-    <div className="text-whtie flex h-full w-36 items-center justify-center space-x-1">
+    <div className="text-whtie flex h-full w-36 items-center justify-start space-x-1">
       {popularityBars}
+      <div className="hidden group-hover:flex"></div>
     </div>
   );
 }

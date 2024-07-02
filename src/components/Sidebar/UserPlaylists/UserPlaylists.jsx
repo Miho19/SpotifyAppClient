@@ -22,10 +22,11 @@ export default function UserPlaylists() {
   );
 
   return (
-    <SidebarContainer>
-      <section data-testid="User Playlists" className="h-full w-full">
-        <nav className="h-full w-full space-y-1">{userPlaylistSidebarList}</nav>
-      </section>
-    </SidebarContainer>
+    <section
+      data-testid="User Playlists"
+      className="my-2 flex min-h-16 w-full grow flex-col items-start space-y-4 rounded-lg bg-gradient-to-l from-[#161616] to-[#171717] p-3"
+    >
+      <nav className="h-full w-full space-y-1">{userPlaylistSidebarList}</nav>
+    </section>
   );
 }

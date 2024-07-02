@@ -19,12 +19,12 @@ export default function Root() {
   //if (isLoading) return <LoadingPage title="Fetching User" />;
 
   return (
-    <main className="flex h-[100vh] w-full overflow-hidden bg-[#191414] font-sans">
-      <aside className="m-w-20 flex h-full  md:w-1/4">
+    <main className="flex h-[100vh] w-full overflow-hidden bg-black font-sans">
+      <aside className="m-w-20 flex h-full md:w-1/4">
         <Sidebar />
       </aside>
 
-      <section className="h-full w-3/4 grow ">
+      <section className="h-full w-3/4">
         <Outlet />
       </section>
     </main>
