@@ -1,9 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, test, afterEach, vi } from "vitest";
 import { testReturnObject } from "./useAuth0MockReturn";
-import App from "../App";
-import { SpotifyContext } from "../context/SpotifyContext";
-import { spotifyProfile } from "./spotifyTestUtilities";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { routes } from "../routes/router";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
+
+const queryClient = new QueryClient();
 
 vi.mock("@auth0/auth0-react");
 
@@ -18,11 +20,15 @@ describe("Auth0", () => {
       isLoading: false,
     });
 
+    const router = createMemoryRouter(routes);
+
     render(
-      <SpotifyContext.Provider value={{ spotifyProfile }}>
-        <App />
-      </SpotifyContext.Provider>,
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
     );
+
+    await waitFor(() => screen.getByText("Login"));
     const loginElement = screen.getByText("Login");
     expect(loginElement).toBeTruthy();
   });
@@ -35,10 +41,12 @@ describe("Auth0", () => {
       isLoading: false,
     });
 
+    const router = createMemoryRouter(routes);
+
     render(
-      <SpotifyContext.Provider value={{ spotifyProfile }}>
-        <App />
-      </SpotifyContext.Provider>,
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
     );
     const HomeSideBarElement = screen.getByText("Home");
     expect(HomeSideBarElement).toBeTruthy();
